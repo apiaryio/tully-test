@@ -1,47 +1,80 @@
 FORMAT: 1A
-HOST: http://www.google.com
+HOST: https://polls.apiblueprint.org/
 
-# sfddf
-Notes API is a *short texts saving* service similar to its physical paper presence on your table.
+# Pavan Kumar Sunkara
 
-# Group Notes
-Notes related resources of the **Notes API**
+Polls is a simple API allowing consumers to view polls and vote in them.
 
-## Notes Collection [/notes]
-### List all Notes [GET]
+## Questions Collection [/questions]
+
+### List All Questions [GET]
+
 + Response 200 (application/json)
 
-        [{
-          "id": 1, "title": "Jogging in park"
-        }, {
-          "id": 2, "title": "Pick-up posters from post-office"
-        }]
+        [
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 2048
+                    }, {
+                        "choice": "Python",
+                        "votes": 1024
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 512
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 256
+                    }
+                ]
+            }
+        ]
 
-### Create a Note [POST]
+### Create a New Question [POST]
+
+You may create your own question using this action. It takes a JSON
+object containing a question and a collection of answers in the
+form of choices.
+
 + Request (application/json)
 
-        { "title": "Buy cheese and bread for breakfast." }
+        {
+            "question": "Favourite programming language?",
+            "choices": [
+                "Swift",
+                "Python",
+                "Objective-C",
+                "Ruby"
+            ]
+        }
 
 + Response 201 (application/json)
 
-        { "id": 3, "title": "Buy cheese and bread for breakfast." }
+    + Headers
 
-## Note [/notes/{id}]
-A single Note object with all its details
-
-+ Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
-
-### Retrieve a Note [GET]
-+ Response 200 (application/json)
-
-    + Header
-
-            X-My-Header: The Value
+            Location: /questions/2
 
     + Body
 
-            { "id": 2, "title": "Pick-up posters from post-office" }
-
-### Remove a Note [DELETE]
-+ Response 204
+            {
+                "question": "Favourite programming language?",
+                "published_at": "2015-08-05T08:40:51.620Z",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "votes": 0
+                    }, {
+                        "choice": "Python",
+                        "votes": 0
+                    }, {
+                        "choice": "Objective-C",
+                        "votes": 0
+                    }, {
+                        "choice": "Ruby",
+                        "votes": 0
+                    }
+                ]
+            }
